@@ -11,4 +11,8 @@ layout: default
 
 {% include gif_timer.html baseurl=site.baseurl %}
 
-Your content below
+## Recent Updates
+
+{% for change in site.changelog limit:5 %}
+- [{{ change.title }}]({{ change.url }}) - {{ change.date | date: "%B %d, %Y" }}
+{% endfor %}
