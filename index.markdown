@@ -9,7 +9,6 @@ layout: default
 {% include stripe_button.html %}
 {% include rebind_form.html %}
 
-
-{% include gif_timer.html %}
+{% include gif_timer.html baseurl=site.baseurl %}
 
 Your content below
