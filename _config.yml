@@ -54,3 +54,7 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+collections:
+  changelog:
+    output: true
+    permalink: /changelog/:path/
