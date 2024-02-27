@@ -1,6 +1,9 @@
 <!-- _includes/gif_timer.html -->
 <button id="startDemo" class="download-button">Start Demo</button>
-<img id="demoGif" src="{{ include.baseurl }}/assets/images/ecmsdemo.gif" style="display:none;" />
+<video id="demoVideo" style="display:none;" controls>
+  <source src="{{ include.baseurl }}/assets/images/ecmsdemo.mov" type="video/quicktime">
+  Your browser does not support the video tag.
+</video>
 <div id="timer" style="font-weight: bold;"></div>
 
 <script>
@@ -10,26 +13,34 @@ function startDemo() {
     if (demoRunning) return; // If demo is already running, do nothing
     demoRunning = true; // Set the flag to true as the demo starts
 
-    var gif = document.getElementById('demoGif');
+    var video = document.getElementById('demoVideo');
     var timerElement = document.getElementById('timer');
-    var duration = 28; // Duration of the GIF in seconds
-    gif.style.display = 'block'; // Show the GIF
-    gif.src = gif.src + '?' + new Date().getTime(); // Restart the GIF by forcing a reload
+    var duration = video.duration; // Get the duration of the video
 
-    gif.onload = function() {
-        timerElement.innerHTML = 'Demo duration: ' + duration + ' seconds';
+    video.style.display = 'block'; // Show the video
+    video.load(); // Reload the video to ensure it starts from the beginning
+    video.play(); // Start playing the video
 
-        var countdown = duration;
-        var timer = setInterval(function() {
-            countdown--;
-            timerElement.innerHTML = 'Time elapsed: ' + (duration - countdown) + ' seconds. Time left: ' + countdown + ' seconds';
-            if (countdown <= 0) {
-                clearInterval(timer);
-                timerElement.innerHTML = 'Demo ended';
-                gif.style.display = 'none'; // Optionally hide the GIF after playing
-                demoRunning = false; // Reset the flag as the demo ends
-            }
-        }, 1000);
+    timerElement.innerHTML = 'Demo duration: ' + Math.round(duration) + ' seconds';
+
+    var countdown = Math.round(duration);
+    var timer = setInterval(function() {
+        countdown--;
+        timerElement.innerHTML = 'Time elapsed: ' + (Math.round(duration) - countdown) + ' seconds. Time left: ' + countdown + ' seconds';
+        if (countdown <= 0) {
+            clearInterval(timer);
+            timerElement.innerHTML = 'Demo ended';
+            video.style.display = 'none'; // Optionally hide the video after playing
+            demoRunning = false; // Reset the flag as the demo ends
+        }
+    }, 1000);
+
+    // Reset the timer and hide the video when it ends
+    video.onended = function() {
+        clearInterval(timer);
+        timerElement.innerHTML = 'Demo ended';
+        video.style.display = 'none';
+        demoRunning = false;
     };
 }
 
