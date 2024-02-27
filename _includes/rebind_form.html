@@ -1,0 +1,47 @@
+<!-- _includes/rebind_form.html -->
+<div id="rebindForm">
+    <input type="text" id="licenseKeyInput" placeholder="Enter License Key" />
+    <input type="text" id="newUuidInput" placeholder="Enter New UUID" />
+    <button id="rebindUuidButton">Rebind UUID</button>
+    <p id="rebindResponseDisplay"></p>
+</div>
+<script>
+    document.getElementById('rebindUuidButton').addEventListener('click', function() {
+        const licenseKey = document.getElementById('licenseKeyInput').value;
+        const newUuid = document.getElementById('newUuidInput').value;
+        const responseDisplay = document.getElementById('rebindResponseDisplay');
+
+        fetch('https://ecms-server-ca35422abdfd.herokuapp.com/rebind-uuid', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Include any other headers your Flask app requires
+            },
+            body: JSON.stringify({
+                license_key: licenseKey,
+                uuid: newUuid
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            if (data.error) {
+                responseDisplay.innerText = data.error;
+                responseDisplay.style.color = 'red'; // Error styling
+            } else {
+                responseDisplay.innerText = data.message || 'UUID successfully rebound to license key.';
+                responseDisplay.style.color = 'green'; // Success styling
+            }
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+            responseDisplay.innerText = 'An error occurred. Please try again.';
+            responseDisplay.style.color = 'red'; // Error styling
+        });
+    });
+</script>

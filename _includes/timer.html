@@ -1,0 +1,19 @@
+<!-- _includes/timer.html -->
+<div id="timer" style="font-weight: bold;"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    var timeLeft = 30; // Duration of the GIF in seconds
+    var timerElement = document.getElementById('timer');
+    timerElement.innerHTML = 'Demo duration: ' + timeLeft + ' seconds';
+
+    var countdown = setInterval(function() {
+        timeLeft--;
+        timerElement.innerHTML = 'Demo duration: ' + timeLeft + ' seconds';
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            timerElement.innerHTML = 'Demo ended';
+        }
+    }, 1000);
+});
+</script>

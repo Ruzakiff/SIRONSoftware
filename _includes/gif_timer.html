@@ -1,0 +1,29 @@
+<!-- _includes/gif_timer.html -->
+<button id="startDemo" class="download-button">Start Demo</button>
+<img id="demoGif" src="/assets/images/ecmsdemo.gif" style="display:none;" />
+<div id="timer" style="font-weight: bold;"></div>
+
+<script>
+function startDemo() {
+    var gif = document.getElementById('demoGif');
+    var timerElement = document.getElementById('timer');
+    var duration = 28; // Duration of the GIF in seconds
+    gif.style.display = 'block'; // Show the GIF
+    gif.src = gif.src + '?' + new Date().getTime(); // Restart the GIF by forcing a reload
+    timerElement.innerHTML = 'Demo duration: ' + duration + ' seconds';
+
+    var countdown = duration;
+    var timer = setInterval(function() {
+        countdown--;
+        // Show both the elapsed time and the remaining time
+        timerElement.innerHTML = 'Time elapsed: ' + (duration - countdown) + ' seconds. Time left: ' + countdown + ' seconds';
+        if (countdown <= 0) {
+            clearInterval(timer);
+            timerElement.innerHTML = 'Demo ended';
+            gif.style.display = 'none'; // Optionally hide the GIF after playing
+        }
+    }, 1000);
+}
+
+document.getElementById('startDemo').addEventListener('click', startDemo);
+</script>
