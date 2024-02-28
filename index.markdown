@@ -13,6 +13,6 @@ layout: default
 
 ## Recent Updates
 
-{% for change in site.changelog limit:5 %}
-- [{{ change.title }}]({{ change.url }}) - {{ change.date | date: "%B %d, %Y" }}
+{% for post in site.posts limit:5 %}
+- [{{ post.title }}]({{ post.url | absolute_url }}) - {{ post.date | date: "%B %d, %Y" }}
 {% endfor %}

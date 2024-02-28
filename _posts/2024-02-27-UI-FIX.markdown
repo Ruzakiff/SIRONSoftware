@@ -1,0 +1,11 @@
+   ---
+   title: "UI Enhancement: Improved Page Stability for Construction Professionals"
+   date: 2024-02-27
+   categories: [UI, Update]
+   ---
+
+   **Issue Resolved:** We've addressed the issue of unpredictable screen behavior during page transitions and refreshes.
+
+   **Who It Benefits:** This enhancement is designed to improve the experience for all users, with particular attention to the needs of our clients in the construction industry.
+
+   **What You'll Notice:** Expect a significant boost in platform stability, providing a seamless and dependable experience as you navigate.
